@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+tortoise-orm
+aerich
+slowapi
+python-jose
+bcrypt
+pydantic
+pydantic-settings
+pydantic[email]
+python-multipart
+pytest
+pytest-asyncio
+httpx
