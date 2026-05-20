@@ -1,8 +1,17 @@
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 # pyrefly: ignore [missing-import]
 from tortoise import Tortoise
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite://db.sqlite3")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgres://postgres:postgres@localhost:5432/issue_tracker")
+
+# Normalise postgresql:// to postgres:// for Tortoise ORM compatibility
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgres://", 1)
 
 TORTOISE_ORM = {
     "connections": {"default": DATABASE_URL},

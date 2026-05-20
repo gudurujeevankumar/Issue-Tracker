@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 from typing import Annotated
 from uuid import UUID
 from fastapi import Depends, HTTPException, Path, status

@@ -73,12 +73,12 @@ pip install -r requirements.txt
 ### 3. Environment Variables (`.env`)
 Create a `.env` file in the root directory:
 ```env
-DATABASE_URL=sqlite://db.sqlite3
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/issue_tracker
 SECRET_KEY=a_very_secure_random_hex_string_here
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 ```
-*Note: SQLite is perfect for local testing. In production, change the `DATABASE_URL` to a Postgres connection string like `postgres://user:pass@host:5432/dbname`.*
+*Note: PostgreSQL is the default database. Ensure you have a running PostgreSQL instance and that the database `issue_tracker` has been created before starting the application.*
 
 ### 4. Run the Server
 ```bash
@@ -130,7 +130,7 @@ Currently, sorting issues by `status` or `priority` Enums is performed in-memory
 - **Production Fix**: Map Enum values to integer indexes inside the database (or use a PostgreSQL custom Enum type), allowing the database query engine to execute sorting via `.order_by()` before returning paginated records.
 
 ### 2. Aerich Migrations
-For local SQLite development, Tortoise ORM generates the schema automatically on startup. For production deployments, transition database schema management to **Aerich** (a migration tool for Tortoise ORM):
+With PostgreSQL, Tortoise ORM can still generate the schema automatically on startup during development. However, for production deployments, transition database schema management to **Aerich** (a migration tool for Tortoise ORM):
 ```bash
 # Initialize migrations
 aerich init -t app.database.TORTOISE_ORM
